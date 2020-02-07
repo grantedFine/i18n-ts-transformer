@@ -1,0 +1,56 @@
+{
+  "name": "i18n-transformer",
+  "version": "1.0.0",
+  "description": "a ts-loader custum transformer for i18n to use different namespaces for different directories",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "module": "es/index.js",
+  "scripts": {
+    "build": "shx rm -rf lib && tsc --pretty -p ./tsconfig.build.json",
+    "test": "ava"
+  },
+  "files": [
+    "lib"
+  ],
+  "peerDependencies": {
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/jest": "^24.0.25",
+    "@types/react": "^16.9.17",
+    "ava": "^3.2.0",
+    "prettier": "^1.11.1",
+    "react": "^16.8",
+    "react-i18next": "^10.1.2",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.6.2",
+    "ts-node": "^8.2.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "files": [
+      "test/test.ts"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:grantedFine/i18n-ts-transformer"
+  },
+  "author": "grantedFine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com:grantedFine/i18n-ts-transformer/issues"
+  },
+  "homepage": "https://github.com:grantedFine/i18n-ts-transformer#readme"
+}
