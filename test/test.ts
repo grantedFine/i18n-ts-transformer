@@ -16,7 +16,7 @@ function runTest() {
         },
       })
       const sourceFile = program.getSourceFile(sourcePath)!
-      const transformer = transform(program)
+      const transformer = transform(program, '__plugins__')
       const result = ts.transform(sourceFile, [transformer])
       const output = printer.printFile(result.transformed[0])
       t.snapshot(output)

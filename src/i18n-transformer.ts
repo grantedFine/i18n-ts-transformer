@@ -157,9 +157,9 @@ function visitNodeAndChildren(
   )
 }
 
-function transform(program: ts.Program) {
+function transform(program: ts.Program, pluginDir: string) {
   return (context: ts.TransformationContext) => {
-    const reg = /(?<=\/__plugins__\/).*?(?=\/)/
+    const reg = new RegExp(`(?<=/${pluginDir}/).*?(?=/)`)
     const typeChecker = program.getTypeChecker()
     const visitor: ts.Visitor = (node: ts.Node) => {
       const sourcePath = node.getSourceFile().fileName
