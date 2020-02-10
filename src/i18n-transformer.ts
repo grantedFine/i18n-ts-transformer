@@ -44,6 +44,7 @@ interface TransformData {
   moduleName: string
   jsxNames: string[]
   pluginName: string
+  defaultNs: string
 }
 
 function isTranJsxOpenElement(node: ts.Node, transformData: TransformData): node is ts.JsxOpeningElement {
@@ -74,7 +75,7 @@ function addNsAttributeToJsx(node: ts.JsxOpeningElement, transformData: Transfor
     ts.createJsxExpression(
       undefined,
       ts.createArrayLiteral(
-        [ts.createStringLiteral('translation'), ts.createStringLiteral(transformData.pluginName)],
+        [ts.createStringLiteral(transformData.defaultNs), ts.createStringLiteral(transformData.pluginName)],
         false,
       ),
     ),
@@ -106,7 +107,7 @@ function transTranslationCall(node: ts.CallExpression, typeChecker: ts.TypeCheck
     if (ts.isImportSpecifier(declaration)) {
       return ts.createCall(ts.createIdentifier(expression.text), undefined, [
         ts.createArrayLiteral(
-          [ts.createStringLiteral('translation'), ts.createStringLiteral(transformData.pluginName)],
+          [ts.createStringLiteral(transformData.defaultNs), ts.createStringLiteral(transformData.pluginName)],
           false,
         ),
       ])
@@ -121,7 +122,7 @@ function transTranslationCall(node: ts.CallExpression, typeChecker: ts.TypeCheck
       undefined,
       [
         ts.createArrayLiteral(
-          [ts.createStringLiteral('translation'), ts.createStringLiteral(transformData.pluginName)],
+          [ts.createStringLiteral(transformData.defaultNs), ts.createStringLiteral(transformData.pluginName)],
           false,
         ),
       ],
@@ -157,7 +158,7 @@ function visitNodeAndChildren(
   )
 }
 
-function transform(program: ts.Program, pluginDir: string) {
+function transform(program: ts.Program, pluginDir: string, defaultNs = 'translation') {
   return (context: ts.TransformationContext) => {
     const reg = new RegExp(`(?<=/${pluginDir}/).*?(?=/)`)
     const typeChecker = program.getTypeChecker()
@@ -174,6 +175,7 @@ function transform(program: ts.Program, pluginDir: string) {
         const transformData = {
           ...needTransform,
           pluginName,
+          defaultNs,
         }
         return visitNodeAndChildren(node, typeChecker, context, transformData)
       }
