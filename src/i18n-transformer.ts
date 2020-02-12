@@ -165,7 +165,7 @@ function transform(program: ts.Program, pluginDir: string, defaultNs = 'translat
     const visitor: ts.Visitor = (node: ts.Node) => {
       const sourcePath = node.getSourceFile().fileName
       const regResult = reg.exec(sourcePath)
-      if (!regResult || !/\.tsx\s*$/.test(sourcePath)) {
+      if (!regResult || !/\.tsx?\s*$/.test(sourcePath)) {
         return node
       }
       const pluginName = regResult[0]
