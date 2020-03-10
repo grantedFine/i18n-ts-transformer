@@ -1,6 +1,6 @@
 {
   "name": "i18n-transformer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "a ts-loader custum transformer for i18n to use different namespaces for different directories",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
